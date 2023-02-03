@@ -11,17 +11,16 @@
 		A08AEBE8298D553A00DEC08A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08AEBE7298D553A00DEC08A /* ContentView.swift */; };
 		A08AEBEA298D553C00DEC08A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A08AEBE9298D553C00DEC08A /* Assets.xcassets */; };
 		A08AEBED298D553C00DEC08A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A08AEBEC298D553C00DEC08A /* Preview Assets.xcassets */; };
-		A08AEBFB298D566F00DEC08A /* DrawOnImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08AEBFA298D566F00DEC08A /* DrawOnImageView.swift */; };
+		A0E822C5298D74A3006FF471 /* DrawOnImage in Frameworks */ = {isa = PBXBuildFile; productRef = A0E822C4298D74A3006FF471 /* DrawOnImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A08AEBE2298D553A00DEC08A /* DrawOnImage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawOnImage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A08AEBE2298D553A00DEC08A /* DrawOnImageSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawOnImageSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A08AEBE5298D553A00DEC08A /* DrawOnImageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawOnImageApp.swift; sourceTree = "<group>"; };
 		A08AEBE7298D553A00DEC08A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A08AEBE9298D553C00DEC08A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A08AEBEC298D553C00DEC08A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A08AEBF9298D55BD00DEC08A /* MyCanvas.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyCanvas.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		A08AEBFA298D566F00DEC08A /* DrawOnImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawOnImageView.swift; sourceTree = "<group>"; };
+		A0E822C2298D738E006FF471 /* PlantUML4iPad */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PlantUML4iPad; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0E822C5298D74A3006FF471 /* DrawOnImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,16 +38,17 @@
 		A08AEBD9298D553A00DEC08A = {
 			isa = PBXGroup;
 			children = (
-				A08AEBF9298D55BD00DEC08A /* MyCanvas.playground */,
+				A0E822C0298D7352006FF471 /* Packages */,
 				A08AEBE4298D553A00DEC08A /* DrawOnImage */,
 				A08AEBE3298D553A00DEC08A /* Products */,
+				A0E822C3298D74A3006FF471 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		A08AEBE3298D553A00DEC08A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A08AEBE2298D553A00DEC08A /* DrawOnImage.app */,
+				A08AEBE2298D553A00DEC08A /* DrawOnImageSample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,7 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				A08AEBE5298D553A00DEC08A /* DrawOnImageApp.swift */,
-				A08AEBFA298D566F00DEC08A /* DrawOnImageView.swift */,
 				A08AEBE7298D553A00DEC08A /* ContentView.swift */,
 				A08AEBE9298D553C00DEC08A /* Assets.xcassets */,
 				A08AEBEB298D553C00DEC08A /* Preview Content */,
@@ -72,12 +72,27 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		A0E822C0298D7352006FF471 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				A0E822C2298D738E006FF471 /* PlantUML4iPad */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		A0E822C3298D74A3006FF471 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A08AEBE1298D553A00DEC08A /* DrawOnImage */ = {
+		A08AEBE1298D553A00DEC08A /* DrawOnImageSample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A08AEBF0298D553C00DEC08A /* Build configuration list for PBXNativeTarget "DrawOnImage" */;
+			buildConfigurationList = A08AEBF0298D553C00DEC08A /* Build configuration list for PBXNativeTarget "DrawOnImageSample" */;
 			buildPhases = (
 				A08AEBDE298D553A00DEC08A /* Sources */,
 				A08AEBDF298D553A00DEC08A /* Frameworks */,
@@ -87,9 +102,12 @@
 			);
 			dependencies = (
 			);
-			name = DrawOnImage;
+			name = DrawOnImageSample;
+			packageProductDependencies = (
+				A0E822C4298D74A3006FF471 /* DrawOnImage */,
+			);
 			productName = DrawOnImage;
-			productReference = A08AEBE2298D553A00DEC08A /* DrawOnImage.app */;
+			productReference = A08AEBE2298D553A00DEC08A /* DrawOnImageSample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -107,7 +125,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A08AEBDD298D553A00DEC08A /* Build configuration list for PBXProject "DrawOnImage" */;
+			buildConfigurationList = A08AEBDD298D553A00DEC08A /* Build configuration list for PBXProject "DrawOnImageSample" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -120,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A08AEBE1298D553A00DEC08A /* DrawOnImage */,
+				A08AEBE1298D553A00DEC08A /* DrawOnImageSample */,
 			);
 		};
 /* End PBXProject section */
@@ -142,7 +160,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A08AEBFB298D566F00DEC08A /* DrawOnImageView.swift in Sources */,
 				A08AEBE8298D553A00DEC08A /* ContentView.swift in Sources */,
 				A08AEBE6298D553A00DEC08A /* DrawOnImageApp.swift in Sources */,
 			);
@@ -334,7 +351,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A08AEBDD298D553A00DEC08A /* Build configuration list for PBXProject "DrawOnImage" */ = {
+		A08AEBDD298D553A00DEC08A /* Build configuration list for PBXProject "DrawOnImageSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A08AEBEE298D553C00DEC08A /* Debug */,
@@ -343,7 +360,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A08AEBF0298D553C00DEC08A /* Build configuration list for PBXNativeTarget "DrawOnImage" */ = {
+		A08AEBF0298D553C00DEC08A /* Build configuration list for PBXNativeTarget "DrawOnImageSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A08AEBF1298D553C00DEC08A /* Debug */,
@@ -353,6 +370,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A0E822C4298D74A3006FF471 /* DrawOnImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DrawOnImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A08AEBDA298D553A00DEC08A /* Project object */;
 }

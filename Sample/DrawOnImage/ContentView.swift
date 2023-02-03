@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DrawOnImage
 
 struct ContentView: View {
     

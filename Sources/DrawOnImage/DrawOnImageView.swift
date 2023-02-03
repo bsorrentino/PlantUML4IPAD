@@ -11,10 +11,10 @@ import SwiftUI
 import PencilKit
 import UIKit
 
-struct DrawOnImageView: View {
+public struct DrawOnImageView: View {
 
     @State private var canvasView: PKCanvasView = PKCanvasView()
-    var image: UIImage?
+    private var image: UIImage?
 //    @State private var drawingOnImage: UIImage = UIImage()
 
 //    @Binding var image: UIImage
@@ -25,11 +25,11 @@ struct DrawOnImageView: View {
 //        self.onSave = onSave
 //    }
 
-    init(image: UIImage?) {
+    public init(image: UIImage?) {
         self.image = image
     }
 
-    var body: some View {
+    public var body: some View {
         if let image  {
             Image( uiImage: image )
                 //.resizable()
