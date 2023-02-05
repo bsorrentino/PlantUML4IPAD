@@ -10,11 +10,16 @@
 import SwiftUI
 import PencilKit
 import UIKit
+import Introspect
 
 public struct DrawOnImageView: View {
 
     @State private var canvasView: PKCanvasView = PKCanvasView()
+    
     private var image: UIImage?
+    private var contentMode: ContentMode
+    private var draw: Bool
+    
 //    @State private var drawingOnImage: UIImage = UIImage()
 
 //    @Binding var image: UIImage
@@ -25,17 +30,35 @@ public struct DrawOnImageView: View {
 //        self.onSave = onSave
 //    }
 
-    public init(image: UIImage?) {
+    public init(image: UIImage?, contentMode: ContentMode, allowDraw draw: Bool ) {
         self.image = image
+        self.contentMode = contentMode
+        self.draw = draw
     }
+    
+    func CanvasWithImage( _ image: UIImage ) -> some View {
+        Image( uiImage: image )
+            .resizable()
+            .aspectRatio(contentMode: contentMode)
+        //  .edgesIgnoringSafeArea(.all)
+            .overlay( CanvasView(canvasView: $canvasView, draw: draw, onSaved: onChanged ), alignment: .bottomLeading )
 
+    }
+    
     public var body: some View {
         if let image  {
-            Image( uiImage: image )
-                //.resizable()
-                .aspectRatio(contentMode: .fit)
-                .edgesIgnoringSafeArea(.all)
-                .overlay( CanvasView(canvasView: $canvasView, onSaved: onChanged), alignment: .bottomLeading )
+            if contentMode == .fill {
+                ScrollView( [.horizontal, .vertical] ) {
+                    CanvasWithImage(image)
+                        .introspectScrollView { 
+                            print( #function )
+                            $0.isScrollEnabled = !draw
+                        }
+                }
+            }
+            else {
+                CanvasWithImage(image)
+            }
 
         }
         else {
@@ -62,14 +85,18 @@ public struct DrawOnImageView: View {
 
 struct CanvasView {
     @Binding var canvasView: PKCanvasView
+    @State var toolPicker = PKToolPicker()
+
+    var draw: Bool
+    
     let onSaved: () -> Void
 
-    @State var toolPicker = PKToolPicker()
 }
 
 extension CanvasView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> PKCanvasView {
+        
         canvasView.tool = PKInkingTool(.pen, color: .gray, width: 10)
         #if targetEnvironment(simulator)
         canvasView.drawingPolicy = .anyInput
@@ -77,11 +104,20 @@ extension CanvasView: UIViewRepresentable {
         canvasView.isOpaque = false
         canvasView.backgroundColor = UIColor.clear
         canvasView.delegate = context.coordinator
-        showToolPicker()
         return canvasView
     }
 
-    func updateUIView(_ uiView: PKCanvasView, context: Context) {}
+    func updateUIView(_ uiView: PKCanvasView, context: Context) {
+        
+        canvasView.drawingGestureRecognizer.isEnabled = draw
+        if draw {
+            showToolPicker( observer: canvasView )
+        }
+        else {
+            hideToolPicker( observer: canvasView )
+        }
+
+    }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(canvasView: $canvasView, onSaved: onSaved)
@@ -90,14 +126,21 @@ extension CanvasView: UIViewRepresentable {
 
 private extension CanvasView {
     
-    func showToolPicker() {
+    func showToolPicker<Observer : PKToolPickerObserver>( observer: Observer) {
         toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
+        toolPicker.addObserver(observer)
         canvasView.becomeFirstResponder()
+    }
+    
+    func hideToolPicker<Observer : PKToolPickerObserver>( observer: Observer) {
+        toolPicker.setVisible(false, forFirstResponder: canvasView)
+        toolPicker.removeObserver(observer)
+        canvasView.resignFirstResponder()
     }
 }
 
 class Coordinator: NSObject {
+    
     var canvasView: Binding<PKCanvasView>
     let onSaved: () -> Void
 
@@ -107,13 +150,52 @@ class Coordinator: NSObject {
     }
 }
 
-extension Coordinator: PKCanvasViewDelegate {
+extension Coordinator: PKCanvasViewDelegate, PKToolPickerObserver {
+    
+    // MARK: PKCanvasViewDelegate
     
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        print( Self.self, #function )
         if !canvasView.drawing.bounds.isEmpty {
             onSaved()
         }
     }
+    
+    func canvasViewDidFinishRendering(_ canvasView: PKCanvasView) {
+        print( Self.self, #function )
+    }
+    
+    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
+        print( Self.self, #function )
+    }
+    
+    func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
+        print( Self.self, #function )
+    }
+    
+    // MARK: PKToolPickerObserver
+    
+    func toolPickerSelectedToolDidChange(_ toolPicker: PKToolPicker) {
+        print( Self.self, #function )
+    }
+
+    
+    func toolPickerIsRulerActiveDidChange(_ toolPicker: PKToolPicker) {
+        print( Self.self, #function )
+    }
+
+    
+    func toolPickerVisibilityDidChange(_ toolPicker: PKToolPicker) {
+        print( Self.self, #function, "isVisible: \(toolPicker.isVisible)" )
+
+    }
+
+    
+    func toolPickerFramesObscuredDidChange(_ toolPicker: PKToolPicker) {
+        print( Self.self, #function )
+
+    }
+
 }
 
 //struct DrawOnImageView_Previews: PreviewProvider {

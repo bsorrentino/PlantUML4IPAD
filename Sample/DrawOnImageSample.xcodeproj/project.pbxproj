@@ -20,7 +20,7 @@
 		A08AEBE7298D553A00DEC08A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A08AEBE9298D553C00DEC08A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A08AEBEC298D553C00DEC08A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A0E822C2298D738E006FF471 /* PlantUML4iPad */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PlantUML4iPad; path = ..; sourceTree = "<group>"; };
+		A0E822C2298D738E006FF471 /* DrawOnImage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DrawOnImage; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +75,7 @@
 		A0E822C0298D7352006FF471 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				A0E822C2298D738E006FF471 /* PlantUML4iPad */,
+				A0E822C2298D738E006FF471 /* DrawOnImage */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
