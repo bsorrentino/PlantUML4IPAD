@@ -14,7 +14,7 @@ import Introspect
 
 public struct DrawOnImageView: View {
 
-    @State private var canvasView: PKCanvasView = PKCanvasView()
+    @State private var canvas: PKCanvasView = PKCanvasView()
     
     private var image: UIImage?
     private var contentMode: ContentMode
@@ -40,7 +40,7 @@ public struct DrawOnImageView: View {
     
     public func clear() {
         print( Self.self, #function )
-        canvasView.drawing = PKDrawing()
+        canvas.drawing = PKDrawing()
     }
     
     func CanvasWithImage( _ image: UIImage ) -> some View {
@@ -48,7 +48,7 @@ public struct DrawOnImageView: View {
             .resizable()
             .aspectRatio(contentMode: contentMode)
         //  .edgesIgnoringSafeArea(.all)
-            .overlay( CanvasView(canvasView: $canvasView,
+            .overlay( CanvasView(canvasView: $canvas,
                                  draw: draw,
                                  onSaved: onChanged ), alignment: .bottomLeading )
     }
@@ -100,7 +100,7 @@ public struct DrawOnImageView: View {
     }
 }
 
-struct CanvasView {
+private struct CanvasView {
     @Binding var canvasView: PKCanvasView
     @State var toolPicker = PKToolPicker()
 
@@ -116,7 +116,7 @@ extension CanvasView: UIViewRepresentable {
         
         canvasView.tool = PKInkingTool(.pen, color: .gray, width: 10)
         #if targetEnvironment(simulator)
-        canvasView.drawingPolicy = .anyInput
+        canvas.drawingPolicy = .anyInput
         #endif
         canvasView.isOpaque = false
         canvasView.backgroundColor = UIColor.clear
