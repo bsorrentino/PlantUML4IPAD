@@ -11,7 +11,8 @@ import SwiftUI
 struct DrawOnImageApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView( image: UIImage(named: "001a"))
+//            ContentView( image: UIImage(named: "001a"))
+            ContentView( image: UIImage(named: "diagram1"))
         }
         
     }

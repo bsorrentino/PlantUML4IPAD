@@ -41,12 +41,14 @@ public struct DrawOnImageView: View {
             .resizable()
             .aspectRatio(contentMode: contentMode)
         //  .edgesIgnoringSafeArea(.all)
-            .overlay( CanvasView(canvasView: $canvasView, draw: draw, onSaved: onChanged ), alignment: .bottomLeading )
-
+            .overlay( CanvasView(canvasView: $canvasView,
+                                 draw: draw,
+                                 onSaved: onChanged ), alignment: .bottomLeading )
     }
     
     public var body: some View {
         if let image  {
+            
             if contentMode == .fill {
                 ScrollView( [.horizontal, .vertical] ) {
                     CanvasWithImage(image)
