@@ -34,6 +34,13 @@ public struct DrawOnImageView: View {
         self.image = image
         self.contentMode = contentMode
         self.draw = draw
+        
+        clear()
+    }
+    
+    public func clear() {
+        print( Self.self, #function )
+        canvasView.drawing = PKDrawing()
     }
     
     func CanvasWithImage( _ image: UIImage ) -> some View {
@@ -50,12 +57,20 @@ public struct DrawOnImageView: View {
         if let image  {
             
             if contentMode == .fill {
-                ScrollView( [.horizontal, .vertical] ) {
-                    CanvasWithImage(image)
-                        .introspectScrollView { 
-                            print( #function )
-                            $0.isScrollEnabled = !draw
-                        }
+                
+                if #available(iOS 16, *) {
+                    ScrollView( [.horizontal, .vertical] ) {
+                        CanvasWithImage(image)
+                            .scrollDisabled(draw)
+                    }
+                }
+                else {
+                    ScrollView( [.horizontal, .vertical] ) {
+                        CanvasWithImage(image)
+                            .introspectScrollView {
+                                $0.isScrollEnabled = !draw
+                            }
+                    }
                 }
             }
             else {
