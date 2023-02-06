@@ -52,7 +52,7 @@ struct ContentView: View {
                     off: Image( systemName: "pencil.circle")))
             }
             DrawOnImageView( contentMode: (fit) ? .fit : .fill,
-                             allowDraw: draw ) {
+                             allowToDraw: draw ) {
                 BackgroundImage
             }
             Spacer()
