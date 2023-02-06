@@ -13,10 +13,12 @@ public struct OverlayCanvasView {
     @State var toolPicker = PKToolPicker()
 
     var draw: Bool
-
-    public init( _ canvas: Binding<PKCanvasView>, draw: Bool) {
+    var onChange: () -> Void
+    
+    public init( _ canvas: Binding<PKCanvasView>, draw: Bool, onChange: @escaping () -> Void ) {
         self._canvas = canvas
         self.draw = draw
+        self.onChange = onChange
     }
 }
 
@@ -47,7 +49,7 @@ extension OverlayCanvasView: UIViewRepresentable {
     }
 
     public func makeCoordinator() -> Coordinator {
-        Coordinator(canvasView: $canvas)
+        Coordinator(canvasView: $canvas, onChange: onChange )
     }
 }
 
@@ -69,9 +71,11 @@ extension OverlayCanvasView {
 public class Coordinator: NSObject {
     
     var canvasView: Binding<PKCanvasView>
-
-    init(canvasView: Binding<PKCanvasView>) {
+    var onChange: () -> Void
+    
+    init(canvasView: Binding<PKCanvasView>, onChange: @escaping () -> Void) {
         self.canvasView = canvasView
+        self.onChange = onChange
     }
 }
 
@@ -81,6 +85,7 @@ extension Coordinator: PKCanvasViewDelegate, PKToolPickerObserver {
     
     public func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         print( Self.self, #function )
+        onChange()
     }
     
     public func canvasViewDidFinishRendering(_ canvasView: PKCanvasView) {
