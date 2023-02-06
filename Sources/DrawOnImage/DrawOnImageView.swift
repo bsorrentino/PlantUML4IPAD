@@ -63,8 +63,8 @@ public struct DrawOnImageView: View {
     
     @Binding private var snapshot: UIImage?
     
-    public init( screenshot: Binding<UIImage?>, contentMode: ContentMode, allowToDraw draw: Bool, content: @escaping () -> Image ) {
-        self._snapshot = screenshot
+    public init( snapshot: Binding<UIImage?>, contentMode: ContentMode, allowToDraw draw: Bool, content: @escaping () -> Image ) {
+        self._snapshot = snapshot
         self.contentMode = contentMode
         self.draw = draw
         self.content = content

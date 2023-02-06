@@ -34,7 +34,7 @@ struct ContentView: View {
     var image: UIImage?
     @State var fit: Bool = true
     @State var draw: Bool = false
-    @State private var screenshot: UIImage?
+    @State private var snapshot: UIImage?
     
     var BackgroundImage: Image {
         if let image {
@@ -60,12 +60,12 @@ struct ContentView: View {
                     .labelStyle(.iconOnly)
                 }
             }
-            if let screenshot {
-                Image( uiImage: screenshot )
+            if let snapshot {
+                Image( uiImage: snapshot )
                     .border(.red, width: 4)
                     .aspectRatio(contentMode: (fit) ? .fit : .fill)
             }
-            DrawOnImageView(screenshot: $screenshot,
+            DrawOnImageView(snapshot: $snapshot,
                              contentMode: (fit) ? .fit : .fill,
                              allowToDraw: draw ) {
                 BackgroundImage
