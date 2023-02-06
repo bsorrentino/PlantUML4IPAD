@@ -7,32 +7,35 @@
 
 import SwiftUI
 import DrawOnImage
+import PencilKit
 
 
-
-typealias ToggleState = ( on: Image, off: Image)
-
-struct ToggleButton : View {
+struct ToggleButton<Label> : View where Label : View  {
      
     @Binding var state:Bool
-    var images: ( on:Image, off:Image )
+    var content: ( Bool ) -> Label
+
+    init( _ state: Binding<Bool>, content: @escaping ( Bool ) -> Label ) {
+        self._state = state
+        self.content = content
+    }
     
     var body: some View {
-        Button( action: {
+        Button {
             state.toggle()
-        }) {
-            (state) ? images.on : images.off
+        } label: {
+            content( state )
         }
     }
     
 }
 
 struct ContentView: View {
-     
     var image: UIImage?
     @State var fit: Bool = true
     @State var draw: Bool = false
-
+    @State private var screenshot: UIImage?
+    
     var BackgroundImage: Image {
         if let image {
             return Image( uiImage: image)
@@ -44,18 +47,29 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                ToggleButton( state: $fit, images: (
-                    on: Image(systemName: "arrow.down.right.and.arrow.up.left"),
-                    off: Image( systemName: "arrow.up.left.and.arrow.down.right")))
-                ToggleButton( state: $draw, images: (
-                    on: Image(systemName: "pencil.circle.fill"),
-                    off: Image( systemName: "pencil.circle")))
+                ToggleButton( $fit ) {
+                    ($0 ?
+                     Label( "", systemImage: "arrow.down.right.and.arrow.up.left" ) :
+                        Label( "", systemImage: "arrow.up.left.and.arrow.down.right") )
+                    .labelStyle(.iconOnly)
+                }
+                ToggleButton( $draw ) {
+                    ($0 ?
+                     Label( "", systemImage: "pencil.circle.fill" ) :
+                        Label( "", systemImage: "pencil.circle") )
+                    .labelStyle(.iconOnly)
+                }
             }
-            DrawOnImageView( contentMode: (fit) ? .fit : .fill,
+            if let screenshot {
+                Image( uiImage: screenshot )
+                    .border(.red, width: 4)
+                    .aspectRatio(contentMode: (fit) ? .fit : .fill)
+            }
+            DrawOnImageView(screenshot: $screenshot,
+                             contentMode: (fit) ? .fit : .fill,
                              allowToDraw: draw ) {
                 BackgroundImage
             }
-            Spacer()
         }
     }
 }
