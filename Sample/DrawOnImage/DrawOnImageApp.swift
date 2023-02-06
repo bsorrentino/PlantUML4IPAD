@@ -11,8 +11,17 @@ import SwiftUI
 struct DrawOnImageApp: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView( image: UIImage(named: "001a"))
-            ContentView( image: UIImage(named: "diagram1"))
+            TabView {
+                ContentView( image: UIImage(named: "001a"))
+                    .tabItem {
+                        Label("001a", systemImage: "")
+                    }
+                
+                ContentView( image: UIImage(named: "diagram1"))
+                    .tabItem {
+                        Label("diagram1", systemImage: "")
+                    }
+            }
         }
         
     }

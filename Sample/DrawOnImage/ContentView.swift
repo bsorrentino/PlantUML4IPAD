@@ -43,9 +43,15 @@ struct ContentView: View {
                     on: Image(systemName: "pencil.circle.fill"),
                     off: Image( systemName: "pencil.circle")))
             }
-            DrawOnImageView( image: image,
-                             contentMode: (fit) ? .fit : .fill,
-                             allowDraw: draw )
+            DrawOnImageView( contentMode: (fit) ? .fit : .fill,
+                             allowDraw: draw ) {
+                if let image {
+                    return Image( uiImage: image)
+                }
+                else {
+                    return Image("")
+                }
+            }
             Spacer()
         }
     }
@@ -63,3 +69,4 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
+
