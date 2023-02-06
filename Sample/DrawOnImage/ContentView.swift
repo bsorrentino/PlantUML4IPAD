@@ -33,6 +33,14 @@ struct ContentView: View {
     @State var fit: Bool = true
     @State var draw: Bool = false
 
+    var BackgroundImage: Image {
+        if let image {
+            return Image( uiImage: image)
+        }
+        else {
+            return Image("")
+        }
+    }
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -45,12 +53,7 @@ struct ContentView: View {
             }
             DrawOnImageView( contentMode: (fit) ? .fit : .fill,
                              allowDraw: draw ) {
-                if let image {
-                    return Image( uiImage: image)
-                }
-                else {
-                    return Image("")
-                }
+                BackgroundImage
             }
             Spacer()
         }
