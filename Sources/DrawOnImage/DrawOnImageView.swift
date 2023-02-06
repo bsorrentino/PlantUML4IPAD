@@ -31,7 +31,7 @@ public struct DrawOnImageView: View {
 //        self.onSave = onSave
 //    }
 
-    public init(contentMode: ContentMode, allowDraw draw: Bool, content: @escaping () -> Image ) {
+    public init(contentMode: ContentMode, allowToDraw draw: Bool, content: @escaping () -> Image ) {
 //        self.image = image
         self.contentMode = contentMode
         self.draw = draw
