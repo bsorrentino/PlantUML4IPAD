@@ -27,17 +27,23 @@ extension OverlayCanvasView: UIViewRepresentable {
     public func makeUIView(context: Context) -> PKCanvasView {
         
 //        canvas.tool = PKInkingTool(.pen, color: .gray, width: 10)
+//        canvas.translatesAutoresizingMaskIntoConstraints = false
+//        canvas.maximumZoomScale = 2.0
         #if targetEnvironment(simulator)
         canvas.drawingPolicy = .anyInput
+//        canvas.layer.borderColor = UIColor.red.cgColor
+//        canvas.layer.borderWidth = 4
         #endif
         canvas.isOpaque = false
         canvas.backgroundColor = UIColor.clear
         canvas.delegate = context.coordinator
+        
         return canvas
     }
 
     public func updateUIView(_ uiView: PKCanvasView, context: Context) {
         
+//        print( Self.self, #function, "content offset: \(canvas.contentOffset) size: \(canvas.contentSize) ")
         canvas.drawingGestureRecognizer.isEnabled = draw
         if draw {
             showToolPicker()

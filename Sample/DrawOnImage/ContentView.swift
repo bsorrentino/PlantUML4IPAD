@@ -9,6 +9,9 @@ import SwiftUI
 import DrawOnImage
 import PencilKit
 
+private var isInPreviewMode:Bool {
+    (ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != nil)
+}
 
 struct ToggleButton<Label> : View where Label : View  {
      
@@ -34,6 +37,7 @@ struct ContentView: View {
     var image: UIImage?
     @State var fit: Bool = true
     @State var draw: Bool = false
+    @State var preview: Bool = false
     @State private var snapshot: UIImage?
     
     var BackgroundImage: Image {
@@ -45,30 +49,44 @@ struct ContentView: View {
         }
     }
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                ToggleButton( $fit ) {
-                    ($0 ?
-                     Label( "", systemImage: "arrow.down.right.and.arrow.up.left" ) :
-                        Label( "", systemImage: "arrow.up.left.and.arrow.down.right") )
-                    .labelStyle(.iconOnly)
+        ZStack {
+            VStack(alignment: .leading) {
+                DrawOnImageView(snapshot: $snapshot,
+                                contentMode: (fit) ? .fit : .fill,
+                                allowToDraw: draw ) {
+                    BackgroundImage
                 }
-                ToggleButton( $draw ) {
-                    ($0 ?
-                     Label( "", systemImage: "pencil.circle.fill" ) :
-                        Label( "", systemImage: "pencil.circle") )
-                    .labelStyle(.iconOnly)
+                if isInPreviewMode, preview, let snapshot {
+                    Image( uiImage: snapshot )
+                        .resizable()
+                        .border(.red, width: 4)
+                        .aspectRatio(contentMode: (fit) ? .fit : .fill)
                 }
             }
-            if let snapshot {
-                Image( uiImage: snapshot )
-                    .border(.red, width: 4)
-                    .aspectRatio(contentMode: (fit) ? .fit : .fill)
-            }
-            DrawOnImageView(snapshot: $snapshot,
-                             contentMode: (fit) ? .fit : .fill,
-                             allowToDraw: draw ) {
-                BackgroundImage
+            VStack {
+                HStack(alignment: .top ) {
+                    ToggleButton( $fit ) {
+                        ($0 ?
+                         Label( "fit", systemImage: "arrow.down.right.and.arrow.up.left" ) :
+                            Label( "fill", systemImage: "arrow.up.left.and.arrow.down.right") )
+                        .labelStyle(.titleAndIcon)
+                    }
+                    ToggleButton( $draw ) {
+                        ($0 ?
+                         Label( "", systemImage: "pencil.circle.fill" ) :
+                            Label( "", systemImage: "pencil.circle") )
+                        .labelStyle(.iconOnly)
+                    }
+                    if isInPreviewMode {
+                        ToggleButton( $preview ) {
+                            ($0 ?
+                             Label( "preview on", systemImage: "pencil.circle.fill" ) :
+                                Label( "preview off", systemImage: "pencil.circle") )
+                            .labelStyle(.titleOnly)
+                        }
+                    }
+                }
+                Spacer()
             }
         }
     }
